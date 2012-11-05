@@ -1,0 +1,31 @@
+From 3aa3de4c19b80caaf93812fafff20acd5f5a4d12 Mon Sep 17 00:00:00 2001
+From: Peter Hutterer <peter.hutterer@who-t.net>
+Date: Tue, 19 Apr 2011 11:45:45 +0200
+Subject: [PATCH 2/2] Return EINVAL for invalid parameters on mtdev_init.
+
+[rydberg@euromail.se: minor cleanup]
+Signed-off-by: Peter Hutterer <peter.hutterer@who-t.net>
+Signed-off-by: Henrik Rydberg <rydberg@euromail.se>
+---
+ src/core.c |    5 ++++-
+ 1 files changed, 4 insertions(+), 1 deletions(-)
+
+diff --git a/src/core.c b/src/core.c
+index 07bc828..87ef420 100644
+--- a/src/core.c
++++ b/src/core.c
+@@ -359,7 +359,10 @@ int mtdev_init(struct mtdev *dev)
+ 
+ int mtdev_open(struct mtdev *dev, int fd)
+ {
+-	int ret;
++	int ret = -EINVAL;
++
++	if (!dev || fd < 0)
++		goto error;
+ 	ret = mtdev_init(dev);
+ 	if (ret)
+ 		goto error;
+-- 
+1.7.6
+
