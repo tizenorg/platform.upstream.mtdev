@@ -22,16 +22,13 @@ The mtdev is a stand-alone library which transforms all variants of kernel MT ev
 Summary:        Development package for mtdev library
 Group:          Development/Libraries/C and C++
 Requires:       glibc-devel
-Requires:       libmtdev1 = %{version}
+Requires:       libmtdev = %{version}
 
 %description devel
 This package contains the files needed to compile programs that use mtdev library.
 
 %prep
 %setup -q
-%patch1 -p1
-%patch2 -p1
-%patch3 -p1
 
 %build
 %configure --disable-static
