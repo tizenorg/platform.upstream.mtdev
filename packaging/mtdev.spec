@@ -6,6 +6,7 @@ Summary:        Multitouch Protocol Translation Library
 Url:            http://bitmath.org/code/mtdev/
 Group:          System/Libraries
 Source:         http://bitmath.org/code/mtdev/mtdev-%{version}.tar.bz2
+Source1001: 	mtdev.manifest
 BuildRequires:  pkgconfig
 
 %description
@@ -29,6 +30,7 @@ This package contains the files needed to compile programs that use mtdev librar
 
 %prep
 %setup -q
+cp %{SOURCE1001} .
 
 %build
 %configure --disable-static
@@ -42,15 +44,18 @@ make %{?_smp_mflags}
 %postun -n libmtdev -p /sbin/ldconfig
 
 %files
+%manifest %{name}.manifest
 %defattr(-, root, root)
 %doc COPYING 
 %{_bindir}/*
 
 %files -n libmtdev
+%manifest %{name}.manifest
 %defattr(-, root, root)
 %{_libdir}/lib*.so.*
 
 %files devel
+%manifest %{name}.manifest
 %defattr(-, root, root)
 %{_libdir}/lib*.so
 %{_includedir}/*
