@@ -1,12 +1,12 @@
 Name:           mtdev
-Version:        1.1.3
+Version:        1.1.5
 Release:        0
 License:        MIT
 Summary:        Multitouch Protocol Translation Library
 Url:            http://bitmath.org/code/mtdev/
 Group:          System/Libraries
 Source:         http://bitmath.org/code/mtdev/mtdev-%{version}.tar.bz2
-Source1001: 	mtdev.manifest
+Source1001:     mtdev.manifest
 BuildRequires:  pkgconfig
 
 %description
@@ -21,9 +21,9 @@ The mtdev is a stand-alone library which transforms all variants of kernel MT ev
 
 %package devel
 Summary:        Development package for mtdev library
-Group:          Development/Libraries/C and C++
+Group:          System/Libraries
 Requires:       glibc-devel
-Requires:       libmtdev = %{version}
+Requires:       libmtdev = %{version}-%{release}
 
 %description devel
 This package contains the files needed to compile programs that use mtdev library.
@@ -33,8 +33,8 @@ This package contains the files needed to compile programs that use mtdev librar
 cp %{SOURCE1001} .
 
 %build
-%configure --disable-static
-make %{?_smp_mflags}
+%reconfigure --disable-static
+%__make %{?_smp_mflags}
 
 %install
 %make_install
@@ -46,7 +46,7 @@ make %{?_smp_mflags}
 %files
 %manifest %{name}.manifest
 %defattr(-, root, root)
-%doc COPYING 
+%license COPYING 
 %{_bindir}/*
 
 %files -n libmtdev
@@ -60,5 +60,3 @@ make %{?_smp_mflags}
 %{_libdir}/lib*.so
 %{_includedir}/*
 %{_libdir}/pkgconfig/*.pc
-
-%changelog
